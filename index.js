@@ -1,37 +1,32 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import cors from 'cors';  // Import the CORS package
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware to handle JSON requests and CORS
+app.use(cors());  // Enable CORS for all routes
 app.use(express.json());
 
+// Connect to MongoDB using Mongoose
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log('MongoDB connection error:', err));
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB:', err));
 
-// Simulate __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Serve static files from the React app's build directory
-app.use(express.static(path.join(__dirname, 'build')));
-
-// API routes
-import itemRoutes from './routes/itemRoutes.js';
-
-app.use('/api', itemRoutes);
-
-// All other GET requests not handled before will return the React app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+// Basic route to check server status
+app.get('/', (req, res) => {
+  res.send('Backend server is running');
 });
 
+// Import and use API routes
+import itemRoutes from './routes/itemRoutes.js';
+app.use('/api', itemRoutes);
+
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
