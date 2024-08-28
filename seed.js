@@ -19,6 +19,9 @@ const seedItems = async () => {
     { name: 'Red Dress', category: 'Dress', imageUrl: 'https://images.pexels.com/photos/2562497/pexels-photo-2562497.jpeg?auto=compress&cs=tinysrgb&w=600' },
     { name: 'Blue Jeans', category: 'Pants', imageUrl: 'https://images.pexels.com/photos/1082526/pexels-photo-1082526.jpeg?auto=compress&cs=tinysrgb&w=600' },
     { name: 'White Shirt', category: 'Top', imageUrl: 'https://images.pexels.com/photos/2535859/pexels-photo-2535859.jpeg?auto=compress&cs=tinysrgb&w=600' },
+    { name: 'Red Dress', category: 'Dress', imageUrl: 'https://images.pexels.com/photos/2562497/pexels-photo-2562497.jpeg?auto=compress&cs=tinysrgb&w=600' },
+    { name: 'Blue Jeans', category: 'Pants', imageUrl: 'https://images.pexels.com/photos/1082526/pexels-photo-1082526.jpeg?auto=compress&cs=tinysrgb&w=600' },
+    { name: 'White Shirt', category: 'Top', imageUrl: 'https://images.pexels.com/photos/2535859/pexels-photo-2535859.jpeg?auto=compress&cs=tinysrgb&w=600' },
   ];
 
   await Item.insertMany(items);
