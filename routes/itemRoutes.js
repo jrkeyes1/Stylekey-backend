@@ -1,7 +1,10 @@
 import express from 'express';
+import axios from 'axios';
 import Item from '../models/Item.js';
 
 const router = express.Router();
+
+// CRUD Routes for Your Items
 
 // Create a new item
 router.post('/items', async (req, res) => {
@@ -41,6 +44,37 @@ router.delete('/items/:id', async (req, res) => {
     res.status(200).json({ message: 'Item deleted' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete item' });
+  }
+});
+
+// New Route: Fetch Random Outfit Images from Unsplash API
+router.get('/random-outfit', async (req, res) => {
+  try {
+    const unsplashAccessKey = process.env.UNSPLASH_ACCESS_KEY;
+
+    const categories = ['tops', 'bottoms', 'shoes'];
+
+    const fetchRandomImage = async (category) => {
+      const response = await axios.get(`https://api.unsplash.com/photos/random`, {
+        params: {
+          query: category,
+          client_id: unsplashAccessKey,
+        },
+      });
+      return response.data.urls.small;
+    };
+
+    const randomOutfit = await Promise.all(
+      categories.map(category => fetchRandomImage(category))
+    );
+
+    res.status(200).json({
+      top: randomOutfit[0],
+      bottom: randomOutfit[1],
+      shoes: randomOutfit[2],
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch random outfit' });
   }
 });
 

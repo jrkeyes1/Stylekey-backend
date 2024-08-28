@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';  
+import itemRoutes from './routes/itemRoutes.js';
 
 dotenv.config();
 
@@ -23,8 +24,8 @@ app.get('/', (req, res) => {
 });
 
 // Import and use API routes
-import itemRoutes from './routes/itemRoutes.js';
 app.use('/api', itemRoutes);
+
 
 // Start the server
 app.listen(PORT, () => {
