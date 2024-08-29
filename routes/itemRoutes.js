@@ -47,7 +47,7 @@ router.delete('/items/:id', async (req, res) => {
   }
 });
 
-// New Route: Fetch Random Outfit Images from Unsplash API
+// External API Route to Fetch Random Outfit Images from Unsplash API
 router.get('/random-outfit', async (req, res) => {
   try {
     const unsplashAccessKey = process.env.UNSPLASH_ACCESS_KEY;
